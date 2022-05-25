@@ -158,7 +158,7 @@ function searchModalData({
     name,  
     symbol, 
     thumb, 
-    market_cap_rank, 
+    market_cap_rank 
 }) {
     const modalHeader = document.getElementById('modalHeader')
     const modalCoinTitle = document.getElementById('modalH5')
@@ -189,22 +189,24 @@ function fetchTrendingCoins() {
 // Function to render top 7 trending coins on Modal.
 function renderTrendingCoins(coins) {
     const trendingResults = document.querySelector('#trendingResults');
+    coins.sort((a, b) => a.item.market_cap_rank - b.item.market_cap_rank);
     coins.forEach(coin => {
         const div = document.createElement('div')
+        
+        
         div.className = 'list-group';
         // Must convert FROM innerHTML to textContent
         div.innerHTML = `
         <button type="button" class="list-group-item list-group-item-action" data-bs-toggle="modal" data-bs-target="#modalID">
                 <img src="${coin.item.small}" alt="" height="30px">
             <div class="d-flex w-100 justify-content-between">
-                    <h6 id="coinName" class="mb-1">${coin.item.name} (${coin.item.symbol})</h6>
+                <h6 id="coinName" class="mb-1">${coin.item.name} (${coin.item.symbol})</h6>
                 <small>Market Rank: <span class="marketRankID">${coin.item.market_cap_rank}</span></small>
             </div>
             <small>Score: ${coin.item.score}</small>
         </button>
         `
         trendingResults.appendChild(div);
-        
     });
 }
 
